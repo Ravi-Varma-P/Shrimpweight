@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weight Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Weight Calculator</h1>
+      <p class="subtitle">Enter values, adjust, and export with ease</p>
+    </div>
+
+    <div class="card input-card">
+      <div class="textarea-label-row">
+        <label class="textarea-label">Input Values <span>(one per line)</span></label>
+        <div class="label-right">
+          <button class="kb-toggle" id="kbToggle" onclick="toggleKeyboard()" title="Switch keyboard type">
+            <span id="kbIcon">🔢</span>
+            <span id="kbLabel">Numeric</span>
+          </button>
+          <span class="line-count-badge" id="lineCountBadge">0 values</span>
+        </div>
+      </div>
+      <div class="line-input-wrapper">
+        <div class="line-numbers" id="lineNumbers">
+          <div class="line-num">1</div>
+        </div>
+        <textarea id="inputValues" placeholder="Type a number and press Enter..." spellcheck="false" inputmode="decimal"></textarea>
+      </div>
+    </div>
+
+    <div class="card controls-card">
+      <div class="inputs">
+        <div class="control-group">
+          <label for="defaultAdjustment">Multiply</label>
+          <input type="number" id="defaultAdjustment" value="0" />
+        </div>
+        <div class="control-group">
+          <label for="multiplierValue">Input Price</label>
+          <input type="number" id="multiplierValue" value="1" oninput="updateMultiplier()" />
+        </div>
+        <div class="control-group toggle-group">
+          <label for="themeToggle">Dark Mode</label>
+          <label class="switch">
+            <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="applyAdjustments()">
+        <span>▶</span> Apply Adjustments
+      </button>
+
+      <!-- Export dropdown -->
+      <div class="export-dropdown" id="exportDropdown">
+        <button class="export-btn" onclick="toggleExportMenu(event)">
+          <span>↓</span> Export <span class="arrow">▾</span>
+        </button>
+        <div class="export-menu" id="exportMenu">
+          <button class="menu-item" onclick="exportToCSV()">
+            <span class="menu-icon">📄</span>
+            <div>
+              <div class="menu-title">Export CSV</div>
+              <div class="menu-desc">Spreadsheet format</div>
+            </div>
+          </button>
+          <button class="menu-item" onclick="exportToPDF()">
+            <span class="menu-icon">📑</span>
+            <div>
+              <div class="menu-title">Export PDF</div>
+              <div class="menu-desc">Printable document</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="emptyMsg" class="empty-msg" style="display:none;">⚠️ Please enter at least one valid number.</div>
+
+    <div class="table-wrapper">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Weight</th>
+            <th>Multiply</th>
+            <th>Final</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer">Created by P.Ravi Varma</footer>
+
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
